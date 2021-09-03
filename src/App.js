@@ -47,12 +47,26 @@ function App() {
 
 	const displayInput = (type, value, lastInput) => {
 		if (type === 'oper') {
-			// REPLACE OPERATOR SYMBOL IF LASTINPUT IS OPERATOR
-			symbols.includes(lastInput)
-				? (output = output.slice(0, -1) + value)
-				: (output += value);
+			// PREVENT STARTING WITH AN OPERATOR
+			if (output === '' && value !== '-') {
+				return;
+			} else {
+				// REPLACE OPERATOR SYMBOL IF LASTINPUT IS OPERATOR
+				symbols.includes(lastInput)
+					? (output = output.slice(0, -1) + value)
+					: (output += value);
+			}
 		} else {
-			output += value;
+			// PREVENT ENTER . OR % MULTIPY TIMES
+			if (value === '.' || value === '%') {
+				if (lastInput === '.' || lastInput === '%') {
+					return;
+				} else {
+					output += value;
+				}
+			} else {
+				output += value;
+			}
 		}
 		updateState();
 	};
