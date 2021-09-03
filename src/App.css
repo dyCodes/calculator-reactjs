@@ -1,0 +1,134 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+#root {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-ms-flex-line-pack: center;
+	align-content: center;
+	height: 100vh;
+	padding: 20px;
+	font-family: Oxygen;
+	background: #012;
+}
+#root::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		from(#2b05ff),
+		to(#fa0404)
+	);
+	background: linear-gradient(#2b05ff, #fa0404);
+	-webkit-clip-path: circle(30% at 10% 10%);
+	clip-path: circle(30% at 10% 10%);
+}
+#root::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: -webkit-gradient(
+		linear,
+		left top,
+		left bottom,
+		from(#3700fd),
+		to(#3f0)
+	);
+	background: linear-gradient(#3700fd, #3f0);
+	-webkit-clip-path: circle(30% at 90% 90%);
+	clip-path: circle(30% at 90% 90%);
+}
+.app {
+	position: relative;
+	z-index: 10;
+	margin: auto;
+	top: -10px;
+	height: -webkit-fit-content;
+	height: -moz-fit-content;
+	height: fit-content;
+	border-radius: 10px;
+	background: rgba(255, 255, 255, 0.05);
+	-webkit-backdrop-filter: blur(15px);
+	backdrop-filter: blur(12px);
+	-webkit-box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+	box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+}
+.container {
+	color: #fff;
+}
+.result {
+	width: 300px;
+	height: 140px;
+	padding: 20px 30px;
+	text-align: right;
+	position: relative;
+	overflow: hidden;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+	border-right: 1px solid rgba(255, 255, 255, 0.02);
+}
+.result .history {
+	font-size: 19px;
+}
+.result .output {
+	font-size: 35px;
+	bottom: 18px;
+}
+.result .history,
+.result .output {
+	right: 25px;
+	width: 200vw;
+	position: absolute;
+	text-align: right;
+}
+.keyboard {
+	display: -ms-grid;
+	display: grid;
+	-ms-grid-columns: 1fr 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.keyboard div.btn {
+	display: -ms-grid;
+	display: grid;
+	place-content: center;
+	width: 100%;
+	height: 75px;
+	padding: 10px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	cursor: pointer;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+	border-right: 1px solid rgba(255, 255, 255, 0.02);
+}
+.keyboard div.btn#clear {
+	-ms-grid-column: 1;
+	grid-column-start: 1;
+	grid-column-end: 3;
+}
+.keyboard div.btn:hover {
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
+	background: rgba(255, 255, 255, 0.06);
+}
+.keyboard div.btn:active {
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
+	font-weight: bold;
+	background: #0011fd;
+}
