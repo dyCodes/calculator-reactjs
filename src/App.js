@@ -17,77 +17,90 @@ function App() {
 	};
 
 	// ONCLICK BUTTON CLICK
-	const onClick = (id, type, value) => {
+	const onClick = (id, keyType, value) => {
 		// CONVERT TO STRING
 		output = output.toString();
+		// GET LAST INPUT VALUE
 		let lastInput = output.slice(-1);
 
-		if (type === 'func') {
-			if (id === 'clear') {
+		switch (keyType) {
+			case 'function':
+				functionKey(id, lastInput);
+				break;
+			case 'operator':
+				operatorKey(value, lastInput);
+				break;
+			case 'number':
+				numberKey(value, lastInput);
+				break;
+			default:
+				return;
+		}
+	};
+	const functionKey = (id, lastInput) => {
+		const resetOutput = display => {
+			// RESET VALUES
+			history = '';
+			output = '';
+			// Update state if display == true
+			display && updateState();
+		};
+		const calculate = lastInput => {
+			// CHECK IF LAST INPUT IS NUMBER AND OUTPUT IS NOT EMPTY
+			if (!symbols.includes(lastInput) && output) {
+				try {
+					history = output;
+					output = eval(output.replace(/%/g, '*0.01'));
+					output = Number.isInteger(output) ? output : output.toFixed(3);
+					updateState();
+					// UPDATE HISTORY TO RESULT AND RESET OUTPUT
+					history = output;
+					output = '';
+				} catch (error) {
+					output = 'Error';
+					updateState();
+					resetOutput();
+				}
+			}
+		};
+
+		switch (id) {
+			case 'clear':
 				resetOutput(true);
-			} else if (id === 'clearBack') {
+				break;
+			case 'clearBack':
 				output = output.slice(0, -1);
 				updateState();
-			} else if (id === 'calc') {
+				break;
+			case 'calc':
 				calculate(lastInput);
-			}
-		} else {
-			displayInput(type, value, lastInput);
-		}
-	};
-
-	// RESET VALUES
-	const resetOutput = display => {
-		history = '';
-		output = '';
-		if (display) {
-			updateState();
-		}
-	};
-
-	const displayInput = (type, value, lastInput) => {
-		if (type === 'oper') {
-			// PREVENT STARTING WITH AN OPERATOR
-			if (output === '' && value !== '-') {
+				break;
+			default:
 				return;
-			} else {
-				// REPLACE OPERATOR SYMBOL IF LASTINPUT IS OPERATOR
-				symbols.includes(lastInput)
-					? (output = output.slice(0, -1) + value)
-					: (output += value);
-			}
+		}
+	};
+	const operatorKey = (value, lastInput) => {
+		// PREVENT STARTING WITH AN OPERATOR
+		if (output === '' && value !== '-') {
+			return;
 		} else {
-			// PREVENT ENTER . OR % MULTIPY TIMES
-			if (value === '.' || value === '%') {
-				if (lastInput === '.' || lastInput === '%') {
-					return;
-				} else {
-					output += value;
-				}
-			} else {
-				output += value;
-			}
+			// REPLACE OPERATOR SYMBOL IF LASTINPUT IS OPERATOR
+			symbols.includes(lastInput)
+				? (output = output.slice(0, -1) + value)
+				: (output += value);
 		}
 		updateState();
 	};
-
-	const calculate = lastInput => {
-		// CHECK IF LAST INPUT IS NUMBER AND OUTPUT IS NOT EMPTY
-		if (!symbols.includes(lastInput) && output) {
-			try {
-				history = output;
-				output = eval(output.replace(/%/g, '*0.01'));
-				output = Number.isInteger(output) ? output : output.toFixed(3);
-				updateState();
-				// UPDATE HISTORY TO RESULT AND RESET OUTPUT
-				history = output;
-				output = '';
-			} catch (error) {
-				output = 'Error';
-				updateState();
-				resetOutput();
-			}
+	const numberKey = (value, lastInput) => {
+		// PREVENT ENTERING . OR % MULTIPY TIMES
+		if (value === '.' || value === '%') {
+			// PREVENT STARTING WITH '%'
+			if (output === '' && value === '%') return;
+			lastInput === '.' || lastInput === '%' || (output += value);
+		} else {
+			output += value;
 		}
+		updateState();
 	};
 
 	return (
