@@ -2,7 +2,7 @@
 
 Simple Calculator app created with React.js
 
-![Preview](https://dycodes.github.io/calculator-reactjs/screenshot.png)
+![Preview](https://raw.githubusercontent.com/dyCodes/calculator-reactjs/main/public/screenshot.png)
 
 ## Live Demo
 
