@@ -2,11 +2,13 @@
 
 Simple Calculator app created with React.js
 
-![Preview](https://raw.githubusercontent.com/dyCodes/calculator-reactjs/main/public/screenshot.png)
-
 ## Live Demo
 
 https://dycodes.github.io/calculator-reactjs/
+
+## Screenshot
+
+<img src="https://raw.githubusercontent.com/dyCodes/calculator-reactjs/main/public/screenshot.png" alt="screenshot" width="380"/>
 
 ## Available Scripts
 
